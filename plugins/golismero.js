@@ -1,4 +1,4 @@
-var exec = require('child_process').exec;
+var spawn = require('child_process').spawn;
 
 var execute = function (engine, cb) {
   engine.started();
