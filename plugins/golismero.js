@@ -1,5 +1,5 @@
 var spawn = require('child_process').spawn;
-
+var process = null
 var execute = function (engine, cb) {
   engine.started();
   var input = '[{"param":"address"}]';
