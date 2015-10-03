@@ -6,15 +6,20 @@ var execute = function (engine, cb) {
   engine.request_io(input);
   engine.once('io', function (obj) {
     obj = JSON.parse(obj);
-    exec('nmap ' + obj.address, function (error, stdout, stderr) {
-      if (error) {
-        throw error;
-      }
-      engine.console('> nmap ' + obj.address);
-      engine.console(stdout);
-      engine.console(stderr);
+    if (typeof obj.address != 'undefined' && obj.address != '') {
+      exec('nmap ' + obj.address, function (error, stdout, stderr) {
+        if (error) {
+          throw error;
+        }
+        engine.console('> nmap ' + obj.address);
+        engine.console(stdout);
+        engine.console(stderr);
+        return cb(engine.ended());
+      });
+    } else {
+      engine.fail('\'address\' parameter can\'t be empty');
       return cb(engine.ended());
-    });
+    }
   });
 };
 
