@@ -7,7 +7,6 @@ Plugin for Penmode3
  * Heartbleed
  * Shellshock
  * POODLE
- * GHOST Wordpress
  * some Google DORK
  * Basic Whois tool
  * Ping Sweep
