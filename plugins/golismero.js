@@ -13,13 +13,13 @@ var execute = function (engine, cb) {
 
       process.stdout.on('data', function (data) {
         if (data) {
-          engine.console(data);
+          engine.console(data, true);
         }
       });
 
       process.stderr.on('data', function (data) {
         if (data) {
-          engine.console(data);
+          engine.console(data, true);
         }
       });
 
