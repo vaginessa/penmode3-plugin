@@ -8,8 +8,8 @@ var execute = function (engine, cb) {
   engine.once('io', function (obj) {
     obj = JSON.parse(obj);
     if (typeof obj.address != 'undefined' && obj.address != '') {
-      process = spawn('golismero', ['scan', obj.address , '-vvvv']);
-      engine.console('> golismero scan '+ obj.address + ' -vvvv');
+      process = spawn('golismero', ['scan', obj.address , '-vvvv', '-e', 'heartbleed']);
+      engine.console('> golismero scan '+ obj.address + ' -vvvv -e heartbleed');
       engine.setInteractive(true);
 
       process.stdout.on('data', function (data) {

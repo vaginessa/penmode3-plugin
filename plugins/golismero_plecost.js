@@ -1,6 +1,5 @@
 var spawn = require('child_process').spawn;
-var process = null;
-
+var process = null
 var execute = function (engine, cb) {
   engine.started();
   var input = '[{"param":"address"}]';
@@ -8,8 +7,8 @@ var execute = function (engine, cb) {
   engine.once('io', function (obj) {
     obj = JSON.parse(obj);
     if (typeof obj.address != 'undefined' && obj.address != '') {
-      process = spawn('golismero', ['scan', obj.address , '-vvvv']);
-      engine.console('> golismero scan '+ obj.address + ' -vvvv');
+      process = spawn('golismero', ['scan', obj.address , '-vvvv', '-e', 'plecost']);
+      engine.console('> golismero scan '+ obj.address + ' -vvvv -e plecost');
       engine.setInteractive(true);
 
       process.stdout.on('data', function (data) {
