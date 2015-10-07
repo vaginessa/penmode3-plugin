@@ -8,8 +8,8 @@ var execute = function (engine, cb) {
   engine.once('io', function (obj) {
     obj = JSON.parse(obj);
     if (typeof obj.address != 'undefined' && obj.address != '') {
-      process = spawn('parsero', ['-u', obj.address + '-sb']);
-      engine.console('> parsero -u '+ obj.address + '-sb');
+      process = spawn('parsero', ['-u', obj.address, '-sb']);
+      engine.console('> parsero -u '+ obj.address + ' -sb');
       engine.setInteractive(true);
 
       process.stdout.on('data', function (data) {
@@ -26,6 +26,19 @@ var execute = function (engine, cb) {
 
       process.on('exit', function () {
         return cb(engine.ended());
+      });
+      process.on('close', function () {
+        return cb(engine.ended());
+      });
+
+      process.on('error', function (err) {
+        if (err.code == 'ENOENT') {
+          engine.fail('parsero is not installed');
+          process.kill();
+        } else {
+          engine.fail(err.message);
+          process.kill();
+        }
       });
 
       engine.on('command', function (msg) {

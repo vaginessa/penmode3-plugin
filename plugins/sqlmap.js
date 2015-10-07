@@ -22,6 +22,19 @@ var execute = function (engine, cb) {
   process.on('exit', function () {
     return cb(engine.ended());
   });
+  process.on('close', function () {
+    return cb(engine.ended());
+  });
+
+  process.on('error', function (err) {
+    if (err.code == 'ENOENT') {
+      engine.fail('sqlmap is not installed');
+      process.kill();
+    } else {
+      engine.fail(err.message);
+      process.kill();
+    }
+  });
 
   engine.on('command', function (msg) {
     process.stdin.write(msg + '\r');

@@ -7,11 +7,11 @@ var execute = function (engine, cb) {
   engine.once('io', function (obj) {
     obj = JSON.parse(obj);
     if (typeof obj.address != 'undefined' && obj.address != '') {
-      exec('nmap ' + obj.address, function (error, stdout, stderr) {
+      engine.console('> nmap ' + obj.address);
+      exec('nmap2 ' + obj.address, function (error, stdout, stderr) {
         if (error) {
-          throw error;
+          engine.fail(error.message);
         }
-        engine.console('> nmap ' + obj.address);
         engine.console(stdout);
         engine.console(stderr);
         return cb(engine.ended());
