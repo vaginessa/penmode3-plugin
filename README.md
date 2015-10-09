@@ -11,7 +11,6 @@ Plugin for Penmode3
 
  * POODLE
  * some Google DORK
- * ipinfo.io
  * ishsup.in
 
 #### Thanks
